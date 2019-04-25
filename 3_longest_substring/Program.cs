@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace _3_longest_substring
     {
         static void Main(string[] args)
         {
-            int res = new Solution().LengthOfLongestSubstring("alkjd");
+            int res = new Solution().LengthOfLongestSubstring("pwwkew");
             Console.WriteLine(res);
         }
     }
@@ -18,9 +19,10 @@ namespace _3_longest_substring
         public int LengthOfLongestSubstring(string s)
         {
             int i = 0, l = s.Length, j = 0;
-            Dictionary<char[], int> dictContainer = new Dictionary<char[], int>();
 
-            List<char> lstCurrent = new List<char>(l);
+            List<int> res = new List<int>();
+
+            List<char> lstCurrent = new List<char>();
 
             char tmp = char.MinValue;
 
@@ -29,7 +31,7 @@ namespace _3_longest_substring
                 tmp = s[i];
                 if (lstCurrent.Contains(tmp))
                 {
-                    dictContainer.Add(lstCurrent.ToArray(), lstCurrent.Count());
+                    res.Add(lstCurrent.Count);
                     lstCurrent.Clear();
                     i = j++;
                 }
@@ -38,9 +40,10 @@ namespace _3_longest_substring
                     lstCurrent.Add(tmp);
                 }
             }
-            dictContainer.Add(lstCurrent.ToArray(), lstCurrent.Count());
+            res.Add(lstCurrent.Count);
 
-            return dictContainer.Values.Max();
+
+            return res.Max();
         }
     }
 }
