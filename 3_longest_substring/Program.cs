@@ -9,7 +9,7 @@ namespace _3_longest_substring
     {
         static void Main(string[] args)
         {
-            int res = new Solution().LengthOfLongestSubstring("pwwkew");
+            int res = new Solution().LengthOfLongestSubstring(" ");
             Console.WriteLine(res);
         }
     }
@@ -18,32 +18,34 @@ namespace _3_longest_substring
     {
         public int LengthOfLongestSubstring(string s)
         {
-            int i = 0, l = s.Length, j = 0;
+            if(s.Length == 0)
+            {
+                return 0;
+            }
 
-            List<int> res = new List<int>();
-
+            int i = 0, l = s.Length, j = 0, res = 0, subLength = 0;
             List<char> lstCurrent = new List<char>();
-
             char tmp = char.MinValue;
 
             for (; i < l; i++)
             {
                 tmp = s[i];
+                subLength = lstCurrent.Count;
                 if (lstCurrent.Contains(tmp))
                 {
-                    res.Add(lstCurrent.Count);
+                    res = subLength > res ? subLength : res;
                     lstCurrent.Clear();
                     i = j++;
+
                 }
                 else
                 {
                     lstCurrent.Add(tmp);
                 }
             }
-            res.Add(lstCurrent.Count);
-
-
-            return res.Max();
+            subLength = lstCurrent.Count;
+            res = subLength > res ? subLength : res;
+            return res;
         }
     }
 }
